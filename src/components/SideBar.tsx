@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-
+import { useMovies } from '../MoviesContext'
 interface SideBarProps {
   genres: Array<{
     id: number;
@@ -7,14 +7,15 @@ interface SideBarProps {
     title: string;
   }>;
   selectedGenreId: number;
-  buttonClickCallback: (args: any) => void;
 }
 
 export function SideBar({
   genres,
   selectedGenreId,
-  buttonClickCallback
+  
 }: SideBarProps) {
+  const { handleClickButton } = useMovies();
+
   return (
     <nav className="sidebar">
       <span>Watch<p>Me</p></span>
@@ -25,7 +26,7 @@ export function SideBar({
             key={String(genre.id)}
             title={genre.title}
             iconName={genre.name}
-            onClick={() => buttonClickCallback(genre.id)}
+            onClick={() => handleClickButton(genre.id)}
             selected={selectedGenreId === genre.id}
           />
         ))}
